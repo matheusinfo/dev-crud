@@ -1,0 +1,87 @@
+definitions:
+  gorm.DeletedAt:
+    properties:
+      time:
+        type: string
+      valid:
+        description: Valid is true if Time is not NULL
+        type: boolean
+    type: object
+  models.Dev:
+    properties:
+      createdAt:
+        type: string
+      deletedAt:
+        $ref: '#/definitions/gorm.DeletedAt'
+      email:
+        type: string
+      id:
+        type: string
+      updatedAt:
+        type: string
+      username:
+        type: string
+    type: object
+info:
+  contact: {}
+paths:
+  /dev:
+    get:
+      description: get devs
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/models.Dev'
+            type: array
+      summary: Get all devs
+      tags:
+      - devs
+    post:
+      consumes:
+      - application/json
+      description: create a dev
+      parameters:
+      - description: Dev
+        in: body
+        name: dev
+        required: true
+        schema:
+          $ref: '#/definitions/models.Dev'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/models.Dev'
+      summary: Create a dev
+      tags:
+      - devs
+  /dev/:id:
+    delete:
+      description: remove dev by id
+      produces:
+      - application/json
+      responses:
+        "204":
+          description: No Content
+      summary: Remove dev by id
+      tags:
+      - devs
+    get:
+      description: get dev by id
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Dev'
+      summary: Get dev by id
+      tags:
+      - devs
+swagger: "2.0"
